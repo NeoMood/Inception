@@ -3,15 +3,18 @@
 service mysql start
 
 sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mysql/mariadb.conf.d/50-server.cnf
-# sed -i 's/bind-address\s*=.*/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf
-mysql -e "CREATE DATABASE IF NOT EXISTS saad ;"
-mysql -e "CREATE USER IF NOT EXISTS 'NEO'@'%' IDENTIFIED BY 'neomood02' ;"
-mysql -e "GRANT ALL PRIVILEGES ON saad.* TO 'NEO'@'%' ;"
-# mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345' ;"
-mysql -e "FLUSH PRIVILEGES;"
+if [ ! -d "/var/lib/mysql/saad" ]; then
+    mysql -u root -e "CREATE DATABASE IF NOT EXISTS saad ;"
+    mysql -u root -e "CREATE USER IF NOT EXISTS 'NEO'@'%' IDENTIFIED BY 'neomood02' ;"
+    mysql -u root -e "GRANT ALL PRIVILEGES ON saad.* TO 'NEO'@'%' ;"
+    mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345' ;"
+    # mysql -u root -p12345 -e "FLUSH PRIVILEGES;"
+fi
+
+kill $(pidof mysqld)
 
 # service mysql stop
 
-# tail -f /dev/null
 # mysqld_safe
+# exec "$@"
 mysqld 
