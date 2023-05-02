@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  wordpress:
+    build: ./Wordpress
+    image: wordpress
+    container_name: wordpress
+    ports:
+      - 9000:9000
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress_data:/var/www/html
+    restart: always
+
+  mariadb:
+    build: ./MariadB
+    image: mariadb
+    container_name: mariadb
+    ports:
+      - 3306:3306
+    env_file:
+      - .env
+    restart: always
+
+  nginx:
+    build: ./Nginx
+    image: nginx
+    container_name: nginx
+    ports:
+      - 443:443
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - wordpress
+      - mariadb
+    restart: always
+
+volumes:
+  wordpress_data:

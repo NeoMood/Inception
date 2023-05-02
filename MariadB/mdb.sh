@@ -2,7 +2,6 @@
 
 service mysql start
 
-sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mysql/mariadb.conf.d/50-server.cnf
 if [ ! -d "/var/lib/mysql/saad" ]; then
     mysql -u root -e "CREATE DATABASE IF NOT EXISTS saad ;"
     mysql -u root -e "CREATE USER IF NOT EXISTS 'NEO'@'%' IDENTIFIED BY 'neomood02' ;"
@@ -11,6 +10,7 @@ if [ ! -d "/var/lib/mysql/saad" ]; then
     # mysql -u root -p12345 -e "FLUSH PRIVILEGES;"
 fi
 
+sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mysql/mariadb.conf.d/50-server.cnf
 kill $(pidof mysqld)
 
 # service mysql stop
