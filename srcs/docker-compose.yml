@@ -1,8 +1,12 @@
 version: "3.7"
 
+networks:
+  my-network:
+    driver: bridge
+
 services:
   wordpress:
-    build: ./Wordpress
+    build: ./requirements/wordpress
     image: wordpress
     container_name: wordpress
     ports:
@@ -13,20 +17,24 @@ services:
       - mariadb
     volumes:
       - wordpress_data:/var/www/html
+    networks:
+      - my-network
     restart: always
 
   mariadb:
-    build: ./MariadB
+    build: ./requirements/mariadb
     image: mariadb
     container_name: mariadb
     ports:
       - 3306:3306
     env_file:
       - .env
+    networks:
+      - my-network
     restart: always
 
   nginx:
-    build: ./Nginx
+    build: ./requirements/nginx
     image: nginx
     container_name: nginx
     ports:
@@ -35,7 +43,8 @@ services:
       - wordpress_data:/var/www/html
     depends_on:
       - wordpress
-      - mariadb
+    networks:
+      - my-network
     restart: always
 
 volumes:
