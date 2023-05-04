@@ -1,11 +1,15 @@
 #!/bin/sh
 
+DB_NAME="${DB_NAME:-saad}"
+DB_USER="${DB_USER:-NEO}"
+DB_PASSWORD="${DB_PASSWORD:-neomood02}"
+
 service mysql start
 
-if [ ! -d "/var/lib/mysql/saad" ]; then
-    mysql -u root -e "CREATE DATABASE IF NOT EXISTS saad ;"
-    mysql -u root -e "CREATE USER IF NOT EXISTS 'NEO'@'%' IDENTIFIED BY 'neomood02' ;"
-    mysql -u root -e "GRANT ALL PRIVILEGES ON saad.* TO 'NEO'@'%' ;"
+if [ ! -d "/var/lib/mysql/${DB_NAME}" ]; then
+    mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME} ;"
+    mysql -u root -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}' ;"
+    mysql -u root -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%' ;"
     mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345' ;"
     # mysql -u root -p12345 -e "FLUSH PRIVILEGES;"
 fi
