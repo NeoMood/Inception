@@ -2,12 +2,12 @@ version: "3.7"
 
 networks:
   my-network:
-    driver: bridge
+    # driver: bridge
 
 services:
   wordpress:
     build: ./requirements/wordpress
-    image: wordpress
+    # image: wordpress
     container_name: wordpress
     ports:
       - 9000:9000
@@ -15,6 +15,7 @@ services:
       - .env
     depends_on:
       - mariadb
+      # - ftp
     volumes:
       - wordpress_data:/var/www/html
     networks:
@@ -23,7 +24,7 @@ services:
 
   mariadb:
     build: ./requirements/mariadb
-    image: mariadb
+    # image: mariadb
     container_name: mariadb
     ports:
       - 3306:3306
@@ -35,7 +36,7 @@ services:
 
   nginx:
     build: ./requirements/nginx
-    image: nginx
+    # image: nginx
     container_name: nginx
     ports:
       - 443:443
@@ -43,6 +44,43 @@ services:
       - wordpress_data:/var/www/html
     depends_on:
       - wordpress
+    networks:
+      - my-network
+    restart: always
+  # ftp:
+  #   build: ./requirements/bonus/ftp
+  #   # image: ftp
+  #   container_name: ftp
+  #   volumes:
+  #     - wordpress_data:/var/www/html
+  #   ports:
+  #     - "20:20"
+  #     - "21:21"
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - my-network
+  #   restart: always
+  cadvisor:
+    build: ./requirements/bonus/cadvisor/.
+    container_name: cadvisor
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - my-network
+    restart: always
+  adminer:
+    build: ./requirements/bonus/adminer/.
+    container_name: adminer
+    ports:
+      - 8081:8080
+    volumes:
+      - wordpress_data:/var/www/html
     networks:
       - my-network
     restart: always
