@@ -7,5 +7,3 @@ RUN curl -fsSL https://github.com/google/cadvisor/releases/download/v0.39.1/cadv
     chmod +x /usr/bin/cadvisor
 
 CMD ["/usr/bin/cadvisor"]
-# ENTRYPOINT ["/usr/bin/cadvisor"]
-# CMD ["cadvisor"]

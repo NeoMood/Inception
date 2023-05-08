@@ -84,6 +84,14 @@ services:
     networks:
       - my-network
     restart: always
+  static-website:
+    container_name: website
+    build: ./requirements/bonus/website/.
+    ports:
+      - 8000:1337
+    networks:
+      - my-network
+    restart: always
 
 volumes:
   wordpress_data:
