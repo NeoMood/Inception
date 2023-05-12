@@ -26,6 +26,17 @@ mkdir -p /var/www/html
     # echo "\n\nchecking the theme\n\n"
     # wp theme list --path=/var/www/html --allow-root
 # fi
+
+# Set up Redis Object Cache plugin
+wp plugin install redis-cache --activate --path=/var/www/html --allow-root
+wp redis enable --path=/var/www/html --allow-root
+
+# Configure Redis Object Cache
+wp config set WP_REDIS_HOST 'redis' --path=/var/www/html --allow-root
+wp config set WP_REDIS_PORT '6379' --path=/var/www/html --allow-root
+wp config set WP_REDIS_DATABASE '0' --path=/var/www/html --allow-root
+wp config set WP_CACHE_KEY_SALT 'your-unique-salt-here' --path=/var/www/html --allow-root
+
 sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
 
 mkdir -p /run/php/

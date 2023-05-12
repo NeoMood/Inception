@@ -92,6 +92,14 @@ services:
     networks:
       - my-network
     restart: always
+  redis:
+    container_name: redis
+    build: ./requirements/bonus/redis/.
+    ports: 
+      - 6379:6379
+    networks:
+      - my-network
+    restart: always
 
 volumes:
   wordpress_data:
