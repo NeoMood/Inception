@@ -1,15 +1,15 @@
 #!/bin/sh
 
-DB_NAME="${DB_NAME:-saad}"
-DB_USER="${DB_USER:-NEO}"
-DB_PASSWORD="${DB_PASSWORD:-neomood02}"
-SITE_TITLE="${SITE_TITLE:-My WordPress Site}"
-ADMIN_USER="${ADMIN_USER:-saad}"
-ADMIN_PASSWORD="${ADMIN_PASSWORD:-saad1233}"
-ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
-NEW_USER="${NEW_USER:-neomood}"
-NEW_USER_EMAIL="${NEW_USER_EMAIL:-neomood.2002@gmail.com}"
-NEW_USER_PASSWORD="${NEW_USER_PASSWORD:-neomood02}"
+# DB_NAME="${DB_NAME:-saad}"
+# DB_USER="${DB_USER:-NEO}"
+# DB_PASSWORD="${DB_PASSWORD:-neomood02}"
+# SITE_TITLE="${SITE_TITLE:-My WordPress Site}"
+# ADMIN_USER="${ADMIN_USER:-saad}"
+# ADMIN_PASSWORD="${ADMIN_PASSWORD:-saad1233}"
+# ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
+# NEW_USER="${NEW_USER:-neomood}"
+# NEW_USER_EMAIL="${NEW_USER_EMAIL:-neomood.2002@gmail.com}"
+# NEW_USER_PASSWORD="${NEW_USER_PASSWORD:-neomood02}"
 
 if [ -d "/var/www/html/wp-admin" ]; then
   rm -rf /var/www/html/*

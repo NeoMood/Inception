@@ -17,7 +17,7 @@ services:
       - mariadb
       # - ftp
     volumes:
-      - wordpress_data:/var/www/html
+      - web_vol:/var/www/html
     networks:
       - my-network
     restart: always
@@ -30,6 +30,8 @@ services:
       - 3306:3306
     env_file:
       - .env
+    volumes:
+      - mariadb_vol:/var/lib/mysql
     networks:
       - my-network
     restart: always
@@ -41,26 +43,12 @@ services:
     ports:
       - 443:443
     volumes:
-      - wordpress_data:/var/www/html
+      - web_vol:/var/www/html
     depends_on:
       - wordpress
     networks:
       - my-network
     restart: always
-  # ftp:
-  #   build: ./requirements/bonus/ftp
-  #   # image: ftp
-  #   container_name: ftp
-  #   volumes:
-  #     - wordpress_data:/var/www/html
-  #   ports:
-  #     - "20:20"
-  #     - "21:21"
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - my-network
-  #   restart: always
   cadvisor:
     build: ./requirements/bonus/cadvisor/.
     container_name: cadvisor
@@ -80,7 +68,7 @@ services:
     ports:
       - 8081:8080
     volumes:
-      - wordpress_data:/var/www/html
+      - mariadb_vol:/var/lib/mysql
     networks:
       - my-network
     restart: always
@@ -97,9 +85,23 @@ services:
     build: ./requirements/bonus/redis/.
     ports: 
       - 6379:6379
+    volumes:
+      - web_vol:/var/www/html
     networks:
       - my-network
     restart: always
 
+# volumes:
+#   wordpress_data:
+
 volumes:
-  wordpress_data:
+  mariadb_vol:
+    driver_opts:
+      type: 'none'
+      o: bind
+      device: /home/sgmira/Data/mariadb_vol
+  web_vol:
+    driver_opts:
+      type: 'none'
+      o: bind
+      device: /home/sgmira/Data/web_vol
