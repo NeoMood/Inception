@@ -15,9 +15,8 @@ services:
       - .env
     depends_on:
       - mariadb
-      # - ftp
     volumes:
-      - web_vol:/var/www/html
+      - web_vol:/var/www/html/wordpress
     networks:
       - my-network
     restart: always
@@ -43,7 +42,7 @@ services:
     ports:
       - 443:443
     volumes:
-      - web_vol:/var/www/html
+      - web_vol:/var/www/html/wordpress
     depends_on:
       - wordpress
     networks:
@@ -86,7 +85,7 @@ services:
     ports: 
       - 6379:6379
     volumes:
-      - web_vol:/var/www/html
+      - web_vol:/var/www/html/wordpress
     networks:
       - my-network
     restart: always
@@ -99,9 +98,9 @@ volumes:
     driver_opts:
       type: 'none'
       o: bind
-      device: /home/sgmira/Data/mariadb_vol
+      device: /home/saad/Data/mariadb_vol
   web_vol:
     driver_opts:
       type: 'none'
       o: bind
-      device: /home/sgmira/Data/web_vol
+      device: /home/saad/Data/web_vol
