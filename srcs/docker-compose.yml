@@ -2,12 +2,12 @@ version: "3.7"
 
 networks:
   my-network:
-    # driver: bridge
+    driver: bridge
 
 services:
   wordpress:
     build: ./requirements/wordpress
-    # image: wordpress
+    image: wordpress
     container_name: wordpress
     ports:
       - 9000:9000
@@ -23,7 +23,7 @@ services:
 
   mariadb:
     build: ./requirements/mariadb
-    # image: mariadb
+    image: mariadb
     container_name: mariadb
     ports:
       - 3306:3306
@@ -37,7 +37,7 @@ services:
 
   nginx:
     build: ./requirements/nginx
-    # image: nginx
+    image: nginx
     container_name: nginx
     ports:
       - 443:443
@@ -89,9 +89,6 @@ services:
     networks:
       - my-network
     restart: always
-
-# volumes:
-#   wordpress_data:
 
 volumes:
   mariadb_vol:

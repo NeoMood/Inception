@@ -1,16 +1,5 @@
 #!/bin/sh
 
-# DB_NAME="${DB_NAME:-saad}"
-# DB_USER="${DB_USER:-NEO}"
-# DB_PASSWORD="${DB_PASSWORD:-neomood02}"
-# SITE_TITLE="${SITE_TITLE:-My WordPress Site}"
-# ADMIN_USER="${ADMIN_USER:-saad}"
-# ADMIN_PASSWORD="${ADMIN_PASSWORD:-saad1233}"
-# ADMIN_EMAIL="${ADMIN_EMAIL:-admin@example.com}"
-# NEW_USER="${NEW_USER:-neomood}"
-# NEW_USER_EMAIL="${NEW_USER_EMAIL:-neomood.2002@gmail.com}"
-# NEW_USER_PASSWORD="${NEW_USER_PASSWORD:-neomood02}"
-
 if [ -d "/var/www/html/wordpress/wp-admin" ]; then
   rm -rf /var/www/html/wordpress/*
 fi
@@ -29,13 +18,19 @@ mkdir -p /var/www/html/wordpress
 
 # Set up Redis Object Cache plugin
 wp plugin install redis-cache --activate --path=/var/www/html/wordpress --allow-root
-wp redis enable --path=/var/www/html/wordpress --allow-root
 
 # Configure Redis Object Cache
 wp config set WP_REDIS_HOST 'redis' --path=/var/www/html/wordpress --allow-root
 wp config set WP_REDIS_PORT '6379' --path=/var/www/html/wordpress --allow-root
 wp config set WP_REDIS_DATABASE '0' --path=/var/www/html/wordpress --allow-root
 wp config set WP_CACHE_KEY_SALT 'your-unique-salt-here' --path=/var/www/html/wordpress --allow-root
+
+# Enable Redis Object Cache
+wp redis enable --path=/var/www/html/wordpress --allow-root
+
+# Modify file system permissions
+chown -R www-data:www-data /var/www/html/wordpress
+chmod -R 755 /var/www/html/wordpress
 
 sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
 
