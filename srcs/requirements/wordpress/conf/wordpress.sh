@@ -12,8 +12,6 @@ mkdir -p /var/www/html/wordpress
     wp user create "$NEW_USER" "$NEW_USER_EMAIL" --role=author --user_pass="$NEW_USER_PASSWORD" --path=/var/www/html/wordpress --allow-root
     wp theme install astra --activate --path=/var/www/html/wordpress --allow-root
     wp theme activate astra --path=/var/www/html/wordpress --allow-root
-    # echo "\n\nchecking the theme\n\n"
-    # wp theme list --path=/var/www/html/wordpress --allow-root
 # fi
 
 # Set up Redis Object Cache plugin
@@ -23,7 +21,7 @@ wp plugin install redis-cache --activate --path=/var/www/html/wordpress --allow-
 wp config set WP_REDIS_HOST 'redis' --path=/var/www/html/wordpress --allow-root
 wp config set WP_REDIS_PORT '6379' --path=/var/www/html/wordpress --allow-root
 wp config set WP_REDIS_DATABASE '0' --path=/var/www/html/wordpress --allow-root
-wp config set WP_CACHE_KEY_SALT 'your-unique-salt-here' --path=/var/www/html/wordpress --allow-root
+wp config set WP_CACHE_KEY_SALT "$KEY_SALT" --path=/var/www/html/wordpress --allow-root
 
 # Enable Redis Object Cache
 wp redis enable --path=/var/www/html/wordpress --allow-root
