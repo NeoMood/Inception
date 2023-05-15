@@ -95,9 +95,9 @@ volumes:
     driver_opts:
       type: 'none'
       o: bind
-      device: /home/saad/Data/mariadb_vol
+      device: /Users/sgmira/Desktop/Data/mariadb_vol
   web_vol:
     driver_opts:
       type: 'none'
       o: bind
-      device: /home/saad/Data/web_vol
+      device: /Users/sgmira/Desktop/Data/web_vol
