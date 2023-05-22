@@ -14,3 +14,6 @@ start :
 
 status : 
 	@docker ps
+
+clean  :
+	@docker system prune --all --force --volumes
