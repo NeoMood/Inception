@@ -8,7 +8,7 @@ mkdir -p /var/www/html/wordpress
 # if ! wp core is-installed --allow-root; then
     wp core download --path=/var/www/html/wordpress --allow-root
     wp config create --dbhost=mariadb --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASSWORD" --path=/var/www/html/wordpress --dbhost=mariadb --allow-root
-    wp core install  --url=localhost --title="$SITE_TITLE" --admin_user="$ADMIN_USER" --admin_password="$ADMIN_PASSWORD" --admin_email="$ADMIN_EMAIL" --path=/var/www/html/wordpress --skip-email --allow-root
+    wp core install  --url="$WP_URL" --title="$SITE_TITLE" --admin_user="$ADMIN_USER" --admin_password="$ADMIN_PASSWORD" --admin_email="$ADMIN_EMAIL" --path=/var/www/html/wordpress --skip-email --allow-root
     wp user create "$NEW_USER" "$NEW_USER_EMAIL" --role=author --user_pass="$NEW_USER_PASSWORD" --path=/var/www/html/wordpress --allow-root
     wp theme install astra --activate --path=/var/www/html/wordpress --allow-root
     wp theme activate astra --path=/var/www/html/wordpress --allow-root
