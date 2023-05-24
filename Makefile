@@ -1,8 +1,8 @@
 all : up
 
 up : 
-	@mkdir -p ~/Users/sgmira/Desktop/Data/mariadb_vol
-	@mkdir -p ~/Users/sgmira/Desktop/Data/web_vol
+	@mkdir -p /home/kali/data/mariadb_vol
+	@mkdir -p /home/kali/data/web_vol
 	@docker-compose -f ./srcs/docker-compose.yml up -d
 
 down : 
@@ -18,5 +18,4 @@ status :
 	@docker ps
 
 clean  :
-	@rm -rf ~/Users/sgmira/Desktop/Data
 	@docker system prune --all --force --volumes

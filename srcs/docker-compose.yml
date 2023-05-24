@@ -98,9 +98,9 @@ volumes:
     driver_opts:
       type: 'none'
       o: bind
-      device: /Users/sgmira/Desktop/Data/mariadb_vol
+      device: /home/kali/data/mariadb_vol
   web_vol:
     driver_opts:
       type: 'none'
       o: bind
-      device: /Users/sgmira/Desktop/Data/web_vol
+      device: /home/kali/data/web_vol
