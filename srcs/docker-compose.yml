@@ -33,7 +33,6 @@ services:
     networks:
       - my-network
     restart: always
-
   nginx:
     container_name: nginx
     build: ./requirements/nginx
